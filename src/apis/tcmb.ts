@@ -20,6 +20,8 @@ export async function getExchangeRates(): Promise<ExchangeRate[]> {
       throw new Error(`TCMB API hatası: ${response.status}`);
     }
 
+    // TCMB XML is served in ISO-8859-9 (Turkish).
+    // We convert it to UTF-8 using TextDecoder.
     const buffer = await response.arrayBuffer();
     const decoder = new TextDecoder('iso-8859-9');
     const xmlText = decoder.decode(buffer);
@@ -39,8 +41,8 @@ export async function getExchangeRates(): Promise<ExchangeRate[]> {
       rates.push({
         code,
         name: nameMatch ? nameMatch[1].trim() : '',
-        buying: buyingMatch ? parseFloat(buyingMatch[1]) : null,
-        selling: sellingMatch ? parseFloat(sellingMatch[1]) : null
+        buying: buyingMatch && buyingMatch[1].trim() !== '' ? parseFloat(buyingMatch[1]) : null,
+        selling: sellingMatch && sellingMatch[1].trim() !== '' ? parseFloat(sellingMatch[1]) : null
       });
     }
 

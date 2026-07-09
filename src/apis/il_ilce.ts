@@ -13,7 +13,6 @@ export interface District {
  * Veri kaynağı simülasyon amaçlıdır.
  */
 export async function getCities(): Promise<City[]> {
-  // Örnek statik veri
   return [
     { id: 1, name: 'Adana' },
     { id: 6, name: 'Ankara' },
