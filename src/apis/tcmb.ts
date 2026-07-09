@@ -17,11 +17,9 @@ export async function getExchangeRates(): Promise<ExchangeRate[]> {
   try {
     const response = await fetch('https://www.tcmb.gov.tr/kurlar/today.xml');
     if (!response.ok) {
-      throw new Error(`TCMB API hatası: \${response.status}`);
+      throw new Error(`TCMB API hatası: ${response.status}`);
     }
 
-    // TCMB XML yanıtı genellikle ISO-8859-9 (Turkish) encoding ile gelir, 
-    // ancak fetch genelde UTF-8 bekler. ArrayBuffer üzerinden çevrim gerekebilir.
     const buffer = await response.arrayBuffer();
     const decoder = new TextDecoder('iso-8859-9');
     const xmlText = decoder.decode(buffer);

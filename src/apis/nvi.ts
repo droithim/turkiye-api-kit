@@ -19,10 +19,10 @@ export async function verifyTCKimlik(data: TCKimlikVerifyRequest): Promise<boole
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
     <TCKimlikNoDogrula xmlns="http://tckimlik.nvi.gov.tr/WS">
-      <TCKimlikNo>\${data.tcKimlikNo}</TCKimlikNo>
-      <Ad>\${data.ad.toLocaleUpperCase('tr-TR')}</Ad>
-      <Soyad>\${data.soyad.toLocaleUpperCase('tr-TR')}</Soyad>
-      <DogumYili>\${data.dogumYili}</DogumYili>
+      <TCKimlikNo>${data.tcKimlikNo}</TCKimlikNo>
+      <Ad>${data.ad.toLocaleUpperCase('tr-TR')}</Ad>
+      <Soyad>${data.soyad.toLocaleUpperCase('tr-TR')}</Soyad>
+      <DogumYili>${data.dogumYili}</DogumYili>
     </TCKimlikNoDogrula>
   </soap:Body>
 </soap:Envelope>`;
@@ -38,7 +38,7 @@ export async function verifyTCKimlik(data: TCKimlikVerifyRequest): Promise<boole
     });
 
     if (!response.ok) {
-      throw new Error(\`NVİ API hatası: \${response.status}\`);
+      throw new Error(`NVİ API hatası: ${response.status}`);
     }
 
     const xmlText = await response.text();
